@@ -1,5 +1,6 @@
+#!/usr/bin/python3
+
 import os
-import subprocess
 import argparse
 
 
@@ -20,44 +21,32 @@ def find_python_files(directory):
 
 
 # Code quality checker
-def CodeQualityChecks(python_files, output_file):
+def CodeQualityChecks(python_files, cmsswbase, output_file):
     if python_files:
         with open(output_file, "w") as out_file:
             for file in python_files:
                 # Find the full path of the file
                 file_path = find_file_path(file)
                 if not file_path:
-                    print("File " + file + " not found.")
+                    print(f"File {file} not found.")
                     continue
 
                 # Formatting the code
-                codeFormat = subprocess.run(
-                    ["ruff", "format", file_path],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True,
-                )
+                format_command = f"ruff format {file_path}"
+                codeformating = os.system(format_command)
+
                 # Linting the code
-                codelinting = subprocess.run(
-                    ["ruff", "check", "--fix", file_path],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True,
+                lint_command = f"ruff check --fix {file_path}"
+                codelinting = os.system(lint_command)
+
+                # Git diff of quality checked code online and offline
+                gitdiff_command = (
+                    f"pushd {cmsswbase} > /dev/null && git diff && popd > /dev/null"
                 )
-                # git diff of quality checked code online and offline
-                command = "pushd /home/bkristinsson/cmssw && git diff && popd"
-                gitdiff_Receipt = subprocess.run(
-                    command,
-                    shell=True,
-                    check=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True,
-                )
+                gitdiff_output = os.popen(gitdiff_command).read()
 
                 # Write results to the output file
-                out_file.write("Changes for file: " + file_path + "\n")
-                out_file.write(gitdiff_Receipt.stdout)
+                out_file.write(f"Git Diff:\n{gitdiff_output}\n")
                 out_file.write("\n")
 
 
@@ -69,11 +58,13 @@ def main():
     parser.add_argument(
         "paths", nargs="+", help="List of directories or file paths to process"
     )
-    # for the outputfile given
     parser.add_argument(
         "--outputfile",
         required=True,
         help="Path to the output file.",
+    )
+    parser.add_argument(
+        "--cmsswbase", required=True, help="Path for the CMSSW base directory."
     )
     args = parser.parse_args()
 
@@ -84,12 +75,12 @@ def main():
         elif os.path.isfile(path):
             all_python_files.append(path)
         else:
-            print("Error: " + path + " is not a valid file or directory.")
+            print(f"Error: {path} is not a valid file or directory.")
             return
 
-    CodeQualityChecks(all_python_files, args.outputfile)
+    CodeQualityChecks(all_python_files, args.cmsswbase, args.outputfile)
 
 
-# Entry point of the script !always at the end.
+# Entry point of the script
 if __name__ == "__main__":
     main()

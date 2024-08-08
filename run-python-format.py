@@ -1,6 +1,6 @@
 import os
-import subprocess
 import argparse
+
 
 def main():
     parser = argparse.ArgumentParser(description="Run Python formatting and linting.")
@@ -31,15 +31,17 @@ def main():
 
     # Check if the input file exists
     if not os.path.isfile(input_file):
-        print("Error: " + input_file + " does not exist.")
+        print(f"Error: {input_file} does not exist.")
         return
 
     # Read the list of files from the input file
     try:
         with open(input_file, "r") as file:
-            files_list = [os.path.join(cmssw_base, line.strip()) for line in file.readlines()]
+            files_list = [
+                os.path.join(cmssw_base, line.strip()) for line in file if line.strip()
+            ]
     except IOError as e:
-        print("Error reading " + input_file + ": " + str(e))
+        print(f"Error reading {input_file}: {e}")
         return
 
     # Ensure the directory for the output file exists
@@ -48,19 +50,24 @@ def main():
         try:
             os.makedirs(output_dir)
         except OSError as e:
-            print("Error creating directory " + output_dir + ": " + str(e))
+            print(f"Error creating directory {output_dir}: {e}")
             return
 
-    # Run the external script and redirect output to the specified output file
-    try:
-        subprocess.run(
-            ["python", "../cms-bot/PFA.py"] + files_list + ["--outputfile", output_file],
-            check=True,
-        )
-        print("Successfully processed files. Output saved to " + output_file + ".")
-    except subprocess.CalledProcessError as e:
-        print("An error occurred while running PFA.py: " + str(e))
+    # Construct the command
+    command = (
+        "python ../cms-bot/PFA.py "
+        + " ".join(files_list)
+        + f" --cmsswbase {cmssw_base} --outputfile {output_file}"
+    )
+
+    # Run the command
+    result = os.system(command)
+
+    if result == 0:
+        print(f"Successfully processed files. Output saved to {output_file}.")
+    else:
+        print(f"An error occurred while running PFA.py. Exit code: {result}")
+
 
 if __name__ == "__main__":
     main()
-    
