@@ -30,9 +30,9 @@ def CodeQualityChecks(python_files):
             os.system(format_command)
 
             # Linting the code
-            lint_command = "ruff check --fix {}".format(file_path)
-            print("Executing command: {}".format(lint_command))  # Debug print
-            os.system(lint_command)
+            # lint_command = "ruff check --fix {}".format(file_path)
+            # print("Executing command: {}".format(lint_command))  # Debug print
+            # os.system(lint_command)
 
 
 def main():
