@@ -153,10 +153,6 @@ if $CODE_CHECKS ; then
     if [ -e ${CMSSW_BASE}/tmp/${SCRAM_ARCH}/code-checks-logs ] ; then
       mv ${CMSSW_BASE}/tmp/${SCRAM_ARCH}/code-checks-logs ${UP_DIR}/
     fi
-    if ! $DRY_RUN ; then
-      send_jenkins_artifacts ${UP_DIR}/ pr-code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}
-      ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
-    fi
     pushd $CMSSW_BASE/src
       git diff > ${UP_DIR}/code-checks.patch
       if [ -s ${UP_DIR}/code-checks.patch ] ; then

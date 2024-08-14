@@ -33,6 +33,17 @@ def main():
     except IOError as e:
         print("Error reading {}: {}".format(input_file, e))
         return
+    # Run linting with ruff
+    with open("python-linting.txt", "w") as linting_output:
+        for file in files_list:
+            if os.path.isfile(file):
+                linting_output.write("Checking {}\n".format(file))
+                check_command = "ruff check {}".format(file)
+                result = os.system(check_command)
+                if result != 0:
+                    linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
+
+    print("Python linting completed. Check 'python-linting.txt' for details.")
 
     # Run Python code formatting
     pfa_command = (
@@ -50,18 +61,6 @@ def main():
         print("Successfully formatted files.")
     else:
         print("An error occurred while running PFA.py. Exit code: {}".format(result))
-
-    # Run linting with ruff
-    with open("python-linting.txt", "w") as linting_output:
-        for file in files_list:
-            if os.path.isfile(file):
-                linting_output.write("Checking {}\n".format(file))
-                check_command = "ruff check {}".format(file)
-                result = os.system(check_command)
-                if result != 0:
-                    linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
-
-    print("Python linting completed. Check 'python-linting.txt' for details.")
 
 if __name__ == "__main__":
     main()

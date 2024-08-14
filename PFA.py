@@ -36,9 +36,6 @@ def main():
     parser.add_argument(
         "paths", nargs="+", help="List of directories or file paths to process"
     )
-    parser.add_argument(
-        "--cmsswbase", required=True, help="Path for the CMSSW base directory."
-    )
     args = parser.parse_args()
 
     all_python_files = []
