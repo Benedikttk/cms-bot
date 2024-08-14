@@ -36,13 +36,14 @@ def main():
 
     # Run Python code formatting
     pfa_command = (
-        "python3 ../../cms-bot/PFA.py "
+        "python3 ../cms-bot/PFA.py "
         + " ".join(files_list)
         + " --cmsswbase {}".format(cmssw_base)
     )
 
-    os.system("echo $(ls)")
-
+    print("Command: ", pfa_command)
+    os.system("echo $(pwd)")
+    os.system("exit 0")
     result = os.system(pfa_command)
 
     if result == 0:
