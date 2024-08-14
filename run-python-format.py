@@ -51,9 +51,6 @@ def main():
         + " ".join(files_list)
     )
 
-    print("Command: ", pfa_command)
-    os.system("echo $(pwd)")
-    os.system("exit 0")
     result = os.system(pfa_command)
 
     if result == 0:
