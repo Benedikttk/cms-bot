@@ -105,6 +105,7 @@ popd
 #If we have any non-tests changed files
 COMMIT_CHG=0
 touch ${UP_DIR}/code-checks.patch
+touch ${UP_DIR}/python-code-checks.patch # bkristin: Added this .patch file, Do we need this?
 if $CODE_CHECKS ; then
   if [ -s ${UP_DIR}/code-checks-files.txt ] ; then
     ERR=false
@@ -128,6 +129,8 @@ if $CODE_CHECKS ; then
         ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/code-checks.md
       fi
       #exit 0
+
+
       if [ -s ${UP_DIR}/python-code-format.patch ] ; then
         #echo '-python-code-checks' > ${UP_DIR}/python-code-checks.md
         #echo -e "\nLogs: $UP_URL" >> ${UP_DIR}/python-code-checks.md
