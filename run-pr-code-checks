@@ -166,7 +166,7 @@ if $CODE_FORMAT ; then
     if [ -s ${UP_DIR}/code-format-files.txt ] ; then
       scram build -k -j $NUM_PROC code-format USER_CODE_FORMAT_FILE="${UP_DIR}/code-format-files.txt" > ${UP_DIR}/code-format.log 2>&1
       pushd $CMSSW_BASE/src
-        git restore
+        git restore .
         git diff > ${UP_DIR}/code-format.patch
         if [ -s ${UP_DIR}/code-format.patch ] ; then
           git commit -a -m 'auto applied code-formats changes'
