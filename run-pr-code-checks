@@ -169,7 +169,7 @@ if $CODE_FORMAT ; then
         git restore .
         git diff > ${UP_DIR}/code-format.patch
         cat ${UP_DIR}/code-format.patch
-        if [ -s ${UP_DIR}/code-format.patch ] ; then
+        if [ $(cat ${UP_DIR}/code-format.patch | wc -l) -gt 0 ] ; then
           git commit -a -m 'auto applied code-formats changes'
           let COMMIT_CHG=${COMMIT_CHG}+1
         fi
