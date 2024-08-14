@@ -148,6 +148,7 @@ if $CODE_CHECKS ; then
           ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
         fi
         exit 0
+      fi
     fi
     if [ -e ${CMSSW_BASE}/tmp/${SCRAM_ARCH}/code-checks-logs ] ; then
       mv ${CMSSW_BASE}/tmp/${SCRAM_ARCH}/code-checks-logs ${UP_DIR}/
