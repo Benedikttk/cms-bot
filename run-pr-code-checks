@@ -221,12 +221,12 @@ if [ ${COMMIT_CHG} -gt 0 ] ; then
 
   # Added Python code format instructions, i just followed ^
   # Ask Andrea about this part, not sure if works
-  if [ -s ${UP_DIR}/python-code-format.patch ] ; then
-    HOW_TO_RUN="${HOW_TO_RUN}\n\n- **python-code-format**:"
-    HOW_TO_RUN="${HOW_TO_RUN}\nhttps://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch"
-    HOW_TO_RUN="${HOW_TO_RUN}\ne.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`"
-    HOW_TO_RUN="${HOW_TO_RUN}\nYou can also run \`python3 PFA.py <file> or python3 run-python-format.py --inputfile <code-checks-files.txt> --cmsswbase <basepath>\` to apply Python code formatting directly"
-  fi
+  #if [ -s ${UP_DIR}/python-code-format.patch ] ; then
+  #  HOW_TO_RUN="${HOW_TO_RUN}\n\n- **python-code-format**:"
+  #  HOW_TO_RUN="${HOW_TO_RUN}\nhttps://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch"
+  #  HOW_TO_RUN="${HOW_TO_RUN}\ne.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`"
+  #  HOW_TO_RUN="${HOW_TO_RUN}\nYou can also run \`python3 PFA.py <file> or python3 run-python-format.py --inputfile <code-checks-files.txt> --cmsswbase <basepath>\` to apply Python code formatting directly"
+  #fi
 fi
 
 
