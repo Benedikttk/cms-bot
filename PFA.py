@@ -29,12 +29,6 @@ def CodeQualityChecks(python_files):
             print("Executing command: {}".format(format_command))  # Debug print
             os.system(format_command)
 
-            # Linting the code
-            # lint_command = "ruff check --fix {}".format(file_path)
-            # print("Executing command: {}".format(lint_command))  # Debug print
-            # os.system(lint_command)
-
-
 def main():
     parser = argparse.ArgumentParser(
         description="Linting and formatting Python files in directories or file paths."
