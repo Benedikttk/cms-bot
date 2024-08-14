@@ -110,11 +110,11 @@ if $CODE_CHECKS ; then
     ERR=false
     scram build -k -j $NUM_PROC code-checks USER_CODE_CHECKS_FILE="${UP_DIR}/code-checks-files.txt" > ${UP_DIR}/code-checks.log 2>&1 || ERR=true
     # run python checks
-    # python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
+    python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
     # After Python code formatting and linting, not sure if correct place
-    # pushd $CMSSW_BASE/src
-    #    git diff > ${UP_DIR}/python-code-format.patch || true
-    # popd
+    pushd $CMSSW_BASE/src
+      git diff > ${UP_DIR}/python-code-format.patch || true
+    popd
 
     if $ERR ; then
       echo '-code-checks' > ${UP_DIR}/code-checks.md
@@ -139,11 +139,6 @@ if $CODE_CHECKS ; then
         #echo '```' >> ${UP_DIR}/python-code-checks.md
         #cat ${UP_DIR}/python-code-format.patch >> ${UP_DIR}/python-code-checks.md || true
         #echo '```' >> ${UP_DIR}/python-code-checks.md
-          python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
-          # After Python code formatting and linting, not sure if correct place
-          pushd $CMSSW_BASE/src
-            git diff > ${UP_DIR}/python-code-format.patch || true
-          popd
         if ! $DRY_RUN ; then
           ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
         fi
