@@ -110,10 +110,6 @@ if $CODE_CHECKS ; then
     ERR=false
     scram build -k -j $NUM_PROC code-checks USER_CODE_CHECKS_FILE="${UP_DIR}/code-checks-files.txt" > ${UP_DIR}/code-checks.log 2>&1 || ERR=true
     # run python checks
-    echo "*** HERE: $(pwd) ***"
-    ls ../ || true
-    # Linting changes in Python files
-
     python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
     # After Python code formatting and linting, not sure if correct place
     pushd $CMSSW_BASE/src
