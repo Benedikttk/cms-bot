@@ -49,7 +49,6 @@ def main():
     pfa_command = (
         "python3 ../cms-bot/PFA.py "
         + " ".join(files_list)
-        + " --cmsswbase {}".format(cmssw_base)
     )
 
     print("Command: ", pfa_command)
