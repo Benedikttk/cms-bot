@@ -226,14 +226,6 @@ if [ ${COMMIT_CHG} -gt 0 ] ; then
     HOW_TO_RUN="${HOW_TO_RUN}\ne.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`"
     HOW_TO_RUN="${HOW_TO_RUN}\nYou can also run \`python3 PFA.py <file> or python3 run-python-format.py --inputfile <code-checks-files.txt> --cmsswbase <basepath>\` to apply Python code formatting directly"
   fi
-  # Print HOW_TO_RUN to the terminal for verification
-  echo -e "HOW_TO_RUN contents:\n${HOW_TO_RUN}"
-
-  # Appending HOW_TO_RUN to the message
-  MSG="${RES}${MSG}${HOW_TO_RUN}"
-
-  # Write the message to a file
-  echo -e "${MSG}" > ${UP_DIR}/code-checks.md
 fi
 
 
@@ -272,6 +264,13 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   echo -e '\n We are progressively formatting the entire code base, so changes might refer to untouched lines in the PR.' >> ${UP_DIR}/python-code-checks.md
   echo -e '\n This is a non-blocking check, but feel free to contribute and apply the following formatting patch:' >> ${UP_DIR}/python-code-checks.md
   echo -e "\n $UP_URL/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
+  ##HOW_TO_RUN##
+  echo -e "${HOW_TO_RUN} \n\n- **python-code-format**:"
+  echo -e "${HOW_TO_RUN}\nhttps://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch"
+  echo -e "${HOW_TO_RUN}\ne.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`"
+  echo -e "${HOW_TO_RUN}\nYou can also run \`python3 PFA.py <file> or python3 run-python-format.py --inputfile <code-checks-files.txt> --cmsswbase <basepath>\` to apply Python code formatting directly"
+
+
   if ! $DRY_RUN ; then
     ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
   fi
