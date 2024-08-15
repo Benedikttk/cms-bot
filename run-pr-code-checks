@@ -202,6 +202,7 @@ if [ ${COMMIT_CHG} -gt 0 ] ; then
     popd
     exit 0
   fi
+
   RES="-code-checks"
   HOW_TO_RUN="\n\nCode check has found code style and quality issues which could be resolved by applying following patch(s)"
   if [ -s ${UP_DIR}/code-checks.patch ] ; then
@@ -228,18 +229,32 @@ if [ ${COMMIT_CHG} -gt 0 ] ; then
 fi
 
 
+#MSG="\n\nLogs: $UP_URL"
+#if [ -s ${UP_DIR}/invalid-filenames.txt ] ; then
+#    RES="-code-checks"
+#    MSG="${MSG}\n\n- Error: Found path names starting with digits: ${UP_URL}/invalid-filenames.txt"
+#fi
+#if [ -s ${UP_DIR}/duplicate-data.txt ] ; then
+#    RES="-code-checks"
+#    MSG="${MSG}\n\n- Error: Found data files available in both cmssw and cms-data. Please update these data files directly in cms-data repository: ${UP_URL}/duplicate-data.txt"
+#fi
+#if [ -s ${UP_DIR}/invalid_files.txt ] ; then
+#    MSG="${MSG}\n\n- Found files with invalid states:\n$(cat ${UP_DIR}/invalid_files.txt | sed 's|^\(\s*\)|\1  - |')"
+#fi
+
 MSG="\n\nLogs: $UP_URL"
-if [ -s ${UP_DIR}/invalid-filenames.txt ] ; then
-    RES="-code-checks"
-    MSG="${MSG}\n\n- Error: Found path names starting with digits: ${UP_URL}/invalid-filenames.txt"
-fi
 if [ -s ${UP_DIR}/duplicate-data.txt ] ; then
     RES="-code-checks"
     MSG="${MSG}\n\n- Error: Found data files available in both cmssw and cms-data. Please update these data files directly in cms-data repository: ${UP_URL}/duplicate-data.txt"
 fi
+if [ -s ${UP_DIR}/invalid-filenames.txt ] ; then
+    RES="-code-checks"
+    MSG="${MSG}\n\n- Error: Found path names starting with digits: ${UP_URL}/invalid-filenames.txt"
+fi
 if [ -s ${UP_DIR}/invalid_files.txt ] ; then
     MSG="${MSG}\n\n- Found files with invalid states:\n$(cat ${UP_DIR}/invalid_files.txt | sed 's|^\(\s*\)|\1  - |')"
 fi
+
 
 if [ -s ${UP_DIR}/multiple_files_changes.txt ] ; then
     MSG="${MSG}\n\n- There are other open Pull requests which might conflict with changes you have proposed:"
