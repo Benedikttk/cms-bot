@@ -33,7 +33,7 @@ def main():
     except IOError as e:
         print("Error reading {}: {}".format(input_file, e))
         return
-    # Run linting with ruff
+    # Run linting checks with ruff, for the changes to be made run ruff check --fix <file>
     with open("python-linting.txt", "w") as linting_output:
         for file in files_list:
             if os.path.isfile(file):
@@ -45,7 +45,7 @@ def main():
 
     print("Python linting completed. Check 'python-linting.txt' for details.")
 
-    # Run Python code formatting
+    # Run Python code formatting from PFA.py
     pfa_command = (
         "python3 ../cms-bot/PFA.py "
         + " ".join(files_list)
