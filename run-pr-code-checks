@@ -137,12 +137,6 @@ if $CODE_CHECKS ; then
   fi
 fi
 
-# run python checks
-python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
-pushd $CMSSW_BASE/src
-  git diff > ${UP_DIR}/python-code-format.patch || true
-popd
-
 touch ${UP_DIR}/code-format.patch
 if $CODE_FORMAT ; then
   if [ -f ${CMSSW_BASE}/src/.clang-format ] ; then
@@ -161,6 +155,11 @@ if $CODE_FORMAT ; then
   fi
 fi
 
+# run python checks
+python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
+pushd $CMSSW_BASE/src
+  git diff > ${UP_DIR}/python-code-format.patch || true
+popd
 # Move python checks here
 if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   #echo '-python-code-checks' > ${UP_DIR}/python-code-checks.md
