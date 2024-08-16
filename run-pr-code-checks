@@ -263,7 +263,7 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   echo -e '\n Ruff found formatting errors on the python files in this PR.' >> ${UP_DIR}/python-code-checks.md
   echo -e '\n We are progressively formatting the entire code base, so changes might refer to untouched lines in the PR.' >> ${UP_DIR}/python-code-checks.md
   echo -e '\n This is a non-blocking check, but feel free to contribute and apply the following formatting patch:' >> ${UP_DIR}/python-code-checks.md
-  echo -e "\n $UP_URL/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
+  # echo -e "\n $UP_URL/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
                                                     ##HOW_TO_RUN##
   # Added the HOW_TO_RUN instructions here
   echo -e "\n\n- **python-code-format**:" >> ${UP_DIR}/python-code-checks.md
