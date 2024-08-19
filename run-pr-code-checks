@@ -157,14 +157,16 @@ fi
 
 # run python checks
 # touch python-linting.txt
-python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
+#python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
+python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-file.txt" --cmsswbase "${CMSSW_BASE}/src"
+
 pushd $CMSSW_BASE/src
   # touch python-linting.txt
   git diff > ${UP_DIR}/python-code-format.patch || true
  popd
 
 cp "python-linting.txt" "${UP_DIR}/python-linting.txt" || true
-ls
+# ls
 echo "Here we have the" ${UP_DIR}
 
 if [ ! -f "python-linting.txt" ]; then
