@@ -159,7 +159,7 @@ fi
 # touch python-linting.txt
 python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
 pushd $CMSSW_BASE/src
-  touch python-linting.txt
+  # touch python-linting.txt
   git diff > ${UP_DIR}/python-code-format.patch || true
 
   cp "python-linting.txt" "${UP_DIR}/python-linting.txt" || true
