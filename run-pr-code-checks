@@ -162,13 +162,12 @@ pushd $CMSSW_BASE/src
   # touch python-linting.txt
   git diff > ${UP_DIR}/python-code-format.patch || true
 
-  cp "python-linting.txt" "${UP_DIR}/python-linting.txt" || true
+  cp "python-linting.txt" ${UP_DIR}/python-linting.txt || true
   ls
+  echo "Here we have the UP_DIR" ${UP_DIR}
 
   if [ ! -f "python-linting.txt" ]; then
     echo "Error: python-linting.txt was not created."
-    echo "Current directory: $(pwd)"
-    ls -l
   fi
 
 popd
