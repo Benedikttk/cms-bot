@@ -45,7 +45,7 @@ def main():
         for file in files_list:
             if os.path.isfile(file):
                 # linting_output.write("Checking {}\n".format(file))
-                check_command = "ruff check {} > python-linting.txt".format(file)
+                check_command = "ruff check {} >> python-linting.txt".format(file)
                 result = os.system(check_command)
                 if result != 0:
                     #linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
