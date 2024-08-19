@@ -289,9 +289,9 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   file="python-linting.txt"
   content=$(<"$file")
   if [ "$content" == "All checks passed!" ]; then
-    echo "  - Status: All checks passed!  \xF0\x9F\x98\x8A "
+    echo -e "  - Status: All checks passed!  \xF0\x9F\x98\x8A "
   else
-    echo "  - Status: The content is not as expected.  \xF0\x9F\x98\xA2"
+    echo -e "  - Status: The content is not as expected.  \xF0\x9F\x98\xA2"
   fi
 
   if ! $DRY_RUN ; then
