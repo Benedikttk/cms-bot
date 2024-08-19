@@ -161,16 +161,17 @@ python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files
 pushd $CMSSW_BASE/src
   # touch python-linting.txt
   git diff > ${UP_DIR}/python-code-format.patch || true
+ popd
 
-  cp ../cms-bot/python-linting.txt ${UP_DIR}/python-linting.txt || true
-  ls
-  echo "Here we have the UP_DIR" ${UP_DIR}
+cp "python-linting.txt" "${UP_DIR}/python-linting.txt" || true
+ls
+echo "Here we have the" ${UP_DIR}
 
-  if [ ! -f "python-linting.txt" ]; then
-    echo "Error: python-linting.txt was not created."
-  fi
+if [ ! -f "python-linting.txt" ]; then
+  echo "Error: python-linting.txt was not created."
+fi
 
-popd
+# popd
 # Move python checks here
 #if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   #echo '-python-code-checks' > ${UP_DIR}/python-code-checks.md
