@@ -159,6 +159,14 @@ fi
 python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
 pushd $CMSSW_BASE/src
   git diff > ${UP_DIR}/python-code-format.patch || true
+
+  if [ ! -f "python-linting.txt" ]; then
+    echo "Error: python-linting.txt was not created."
+    echo "Current directory: $(pwd)"
+    ls -l
+    exit 1
+  fi
+  
   cp "python-linting.txt" ${UP_DIR}/python-linting.txt || true
   echo "BTK"
   ls
