@@ -35,6 +35,12 @@ def main():
         return
     # Run linting checks with ruff, for the changes to be made run ruff check --fix <file>
     with open("python-linting.txt", "w") as linting_output:
+        if not files_list:
+            linting_output.write("No files to check.\n")
+            print("No files to check. Exiting.")
+            return
+
+        all_checks_passed = True
         for file in files_list:
             if os.path.isfile(file):
                 linting_output.write("Checking {}\n".format(file))
@@ -42,6 +48,10 @@ def main():
                 result = os.system(check_command)
                 if result != 0:
                     linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
+                    all_checks_passed = False
+                    
+        if all_checks_passed:
+            linting_output.write("All checks passed!\n")
 
     print("Python linting completed. Check 'python-linting.txt' for details.")
 

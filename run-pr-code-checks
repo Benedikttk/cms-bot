@@ -167,7 +167,6 @@ pushd $CMSSW_BASE/src
   fi
 
   cp "python-linting.txt" ${UP_DIR}/python-linting.txt || true
-  echo "BTK"
   ls
 popd
 # Move python checks here
