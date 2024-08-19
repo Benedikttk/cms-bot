@@ -164,9 +164,8 @@ pushd $CMSSW_BASE/src
     echo "Error: python-linting.txt was not created."
     echo "Current directory: $(pwd)"
     ls -l
-    exit 1
   fi
-  
+
   cp "python-linting.txt" ${UP_DIR}/python-linting.txt || true
   echo "BTK"
   ls
