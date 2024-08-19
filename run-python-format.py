@@ -34,6 +34,20 @@ def main():
         print("Error reading {}: {}".format(input_file, e))
         return
 
+    # Run Python code formatting from PFA.py
+    pfa_command = (
+        "python3 ../cms-bot/PFA.py "
+        + " ".join(files_list)
+    )
+
+    format_result = os.system(pfa_command)
+
+    if format_result == 0:
+        print("Successfully formatted files.")
+    else:
+        print("An error occurred while running PFA.py. Exit code: {}".format(format_result))
+
+
     # Run linting checks with ruff, for the changes to be made run ruff check --fix <file>
     with open("python-linting.txt", "w") as linting_output:
         if not files_list:
@@ -57,18 +71,6 @@ def main():
 
     print("Python linting completed. Check 'python-linting.txt' for details.")
 
-    # Run Python code formatting from PFA.py
-    pfa_command = (
-        "python3 ../cms-bot/PFA.py "
-        + " ".join(files_list)
-    )
-
-    result = os.system(pfa_command)
-
-    if result == 0:
-        print("Successfully formatted files.")
-    else:
-        print("An error occurred while running PFA.py. Exit code: {}".format(result))
 
 if __name__ == "__main__":
     main()
