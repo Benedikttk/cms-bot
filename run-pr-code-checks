@@ -284,7 +284,15 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
   echo -e "e.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`" >> ${UP_DIR}/python-code-checks.md
   echo -e "You can also run \`python3 run-python-format.py --inputfile <code-checks-files.txt> --cmsswbase <basepath>\` to apply Python code formatting directly" >> ${UP_DIR}/python-code-checks.md
+  echo -e "\n\n- **python-code-linting**:"
 
+  file="python-linting.txt"
+  content=$(<"$file")
+  if [ "$content" == "All checks passed!" ]; then
+    echo "  - Status: All checks passed!  \xF0\x9F\x98\x8A "
+  else
+    echo "  - Status: The content is not as expected.  \xF0\x9F\x98\xA2"
+  fi
 
   if ! $DRY_RUN ; then
     ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
