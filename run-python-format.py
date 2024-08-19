@@ -42,15 +42,15 @@ def main():
             return
 
         all_checks_passed = True
-        #for file in files_list:
-        if os.path.isfile(file):
-            # linting_output.write("Checking {}\n".format(file))
-            check_command = "ruff check {} > python-linting.txt".format(file)
-            result = os.system(check_command)
-            if result != 0:
-                #linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
-                #linting_output.write(str(result))
-                all_checks_passed = False
+        for file in files_list:
+            if os.path.isfile(file):
+                # linting_output.write("Checking {}\n".format(file))
+                check_command = "ruff check {} > python-linting.txt".format(file)
+                result = os.system(check_command)
+                if result != 0:
+                    #linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
+                    #linting_output.write(str(result))
+                    all_checks_passed = False
                     
         if all_checks_passed:
             linting_output.write("All checks passed!\n")
