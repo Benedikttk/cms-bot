@@ -291,7 +291,8 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   if [ "$content" == "All checks passed!" ]; then
     echo -e "Status: All linting checks passed!  \xF0\x9F\x98\x8A " >> ${UP_DIR}/python-code-checks.md
   else
-    echo -e "Status: There are some linting recommendations that need your attention. Please check the file 'python-linting.txt' for details. \xF0\x9F\x98\xA2" >> ${UP_DIR}/python-code-checks.md
+    echo -e "Status: There are some linting recommendations that need your attention. \xF0\x9F\x98\xA2" >> ${UP_DIR}/python-code-checks.md
+    echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-linting.txt" >> ${UP_DIR}/python-code-checks.md
     echo -e "You can also use the run 'ruff check <file.py> --fix' to automatically apply fixes." >> ${UP_DIR}/python-code-checks.md
   fi
 
