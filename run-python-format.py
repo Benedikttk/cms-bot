@@ -33,6 +33,7 @@ def main():
     except IOError as e:
         print("Error reading {}: {}".format(input_file, e))
         return
+
     # Run linting checks with ruff, for the changes to be made run ruff check --fix <file>
     with open("python-linting.txt", "w") as linting_output:
         if not files_list:
