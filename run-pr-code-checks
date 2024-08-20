@@ -155,7 +155,6 @@ if $CODE_FORMAT ; then
   fi
 fi
 
-# run python checks
 echo "We will now run formatting, and then linting checks"
 
 python3 ../cms-bot/run-python-format.py --inputfile "${UP_DIR}/code-checks-files.txt" --cmsswbase "${CMSSW_BASE}/src"
@@ -211,7 +210,6 @@ if [ ${COMMIT_CHG} -gt 0 ] ; then
     HOW_TO_RUN="${HOW_TO_RUN}\nYou can also run \`scram build code-format\` to apply code format directly"
   fi
 
-  # Added Python code format instructions, i just followed ^
   if [ -s ${UP_DIR}/python-code-format.patch ] ; then
     HOW_TO_RUN="${HOW_TO_RUN}\n\n- **python-code-format**:"
     HOW_TO_RUN="${HOW_TO_RUN}\nhttps://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch"
@@ -248,16 +246,12 @@ if ! $DRY_RUN ; then
   ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/code-checks.md
 fi
 
-#maybe move the python formating here?
-
 if [ -s ${UP_DIR}/python-code-format.patch ] ; then
   echo 'INFO: We are trying to apply PEP8 formatting to CMSSW using Ruff formatter. ' > ${UP_DIR}/python-code-checks.md
   echo -e '\n Ruff found formatting errors on the python files in this PR.' >> ${UP_DIR}/python-code-checks.md
   echo -e '\n We are progressively formatting the entire code base, so changes might refer to untouched lines in the PR.' >> ${UP_DIR}/python-code-checks.md
   echo -e '\n This is a non-blocking check, but feel free to contribute and apply the following formatting patch:' >> ${UP_DIR}/python-code-checks.md
-  # echo -e "\n $UP_URL/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
-                                                    ##HOW_TO_RUN##
-  # Added the HOW_TO_RUN instructions here
+
   echo -e "\n\n- **python-code-format**:" >> ${UP_DIR}/python-code-checks.md
   echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
   echo -e "e.g. \`curl -k https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch | patch -p1\`" >> ${UP_DIR}/python-code-checks.md

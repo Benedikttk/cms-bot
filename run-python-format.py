@@ -48,8 +48,6 @@ def main():
                 check_command = "ruff check {} >> python-linting.txt".format(file)
                 result = os.system(check_command)
                 if result != 0:
-                    #linting_output.write("Error checking file {}: Exit code {}\n".format(file, result))
-                    #linting_output.write(str(result))
                     all_checks_passed = False
                     
         if all_checks_passed:
