@@ -247,10 +247,7 @@ if ! $DRY_RUN ; then
 fi
 
 if [ -s ${UP_DIR}/python-code-format.patch ] ; then
-  echo 'INFO: We are trying to apply PEP8 formatting to CMSSW using Ruff formatter. ' > ${UP_DIR}/python-code-checks.md
-  echo -e '\n Ruff found formatting errors on the python files in this PR.' >> ${UP_DIR}/python-code-checks.md
-  echo -e '\n We are progressively formatting the entire code base, so changes might refer to untouched lines in the PR.' >> ${UP_DIR}/python-code-checks.md
-  echo -e '\n This is a non-blocking check, but feel free to contribute and apply the following formatting patch:' >> ${UP_DIR}/python-code-checks.md
+  echo "INFO: We're applying PEP8 formatting to CMSSW using Ruff; while Ruff found formatting errors in the PR's Python files, this non-blocking check may flag untouched lines, so feel free to contribute by applying the suggested patch." >> ${UP_DIR}/python-code-checks.md
 
   echo -e "\n\n- **python-code-format**:" >> ${UP_DIR}/python-code-checks.md
   echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-code-format.patch" >> ${UP_DIR}/python-code-checks.md
