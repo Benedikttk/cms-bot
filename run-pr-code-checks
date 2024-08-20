@@ -264,9 +264,20 @@ if [ -s ${UP_DIR}/python-code-format.patch ] ; then
     echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-linting.txt" >> ${UP_DIR}/python-code-checks.md
     echo -e "You can also run \`ruff check --fix\` to automatically apply fixes." >> ${UP_DIR}/python-code-checks.md
   fi
-
-
   if ! $DRY_RUN ; then
     ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
   fi
+else
+  echo "INFO: We're applying PEP8 formatting to CMSSW using Ruff; while Ruff found formatting errors in the PR's Python files, this non-blocking check may flag untouched lines, so feel free to contribute by applying the suggested patch." >> ${UP_DIR}/python-code-checks.md
+  echo -e "\n\n- **python-code-linting**:" >> ${UP_DIR}/python-code-checks.md
+    file="python-linting.txt"
+    content=$(<"$file")
+    if [ "$content" == "All checks passed!" ]; then
+      echo -e "Status: All linting checks passed!  \xF0\x9F\x98\x8A " >> ${UP_DIR}/python-code-checks.md
+    else
+      echo -e "Status: There are some linting recommendations that need your attention. \xF0\x9F\x98\xA2" >> ${UP_DIR}/python-code-checks.md
+      echo -e "https://cmssdt.cern.ch/SDT/${JENKINS_PREFIX_STR}code-checks/${REPO_USER}-PR-${PULL_REQUEST}/${BUILD_NUMBER}/python-linting.txt" >> ${UP_DIR}/python-code-checks.md
+      echo -e "You can also run \`ruff check --fix\` to automatically apply fixes." >> ${UP_DIR}/python-code-checks.md
+      ${CMS_BOT_DIR}/comment-gh-pr.py -r ${REPOSITORY} -p $PULL_REQUEST -R ${UP_DIR}/python-code-checks.md
+    fi
 fi
